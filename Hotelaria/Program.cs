@@ -24,7 +24,7 @@ namespace Hotelaria
 
             foreach (Quarto quarto in meuHotel.Quartos)
             {
-                Console.WriteLine($"Quarto {quarto.quartoID}");
+                Console.WriteLine($"Quarto teste {quarto.quartoID}");
             }
             Console.ReadLine();
         }
