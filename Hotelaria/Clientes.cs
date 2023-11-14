@@ -6,14 +6,18 @@ using System.Threading.Tasks;
 
 namespace Hotelaria
 {
+
+    //Classe Clientes, está classe é do registo de clientes onde podemos obter dados pessoais do Cliente, tal como dados referentes
+    //a uma reserva que o cliente faça
     public class Clientes
     {
 
-        public string Nome;
+        public int IDCliente { get; set; }
+        public string Nome { get; set; }
 
-        public string QuartoReservado;
+        public int CC { get; set; }
 
-        public int CC;
+        public Quarto QuartoAlugado;
 
     }
 }

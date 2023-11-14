@@ -9,12 +9,19 @@ namespace Hotelaria
     public  class Quarto
     {
 
-        public int quartoID;
-        public int Numero { get; set; }
-
-        public string Nome;
-        public bool Ocupado { get; set; }
+        public int quartoID { get; set; }
+        public string Nome { get; set; }
+        //Variavel Estado (se está Ocupado ou não)
+        public bool Estado { get; set; }
         public string NomeReserva { get; set; }
+        public DateTime DataCheckIn { get; set; }
+        public DateTime DataCheckOut { get; set; }
+
+        public int Preco { get; set;}
+
+
+
+         
 
 
     }

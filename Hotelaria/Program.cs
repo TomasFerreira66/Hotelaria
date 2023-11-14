@@ -10,9 +10,7 @@ namespace Hotelaria
     {
         static void Main(string[] args)
         {
-
-            
-            
+    
             // Exemplo de criar um hotel com 5 quartos
             Hotel meuHotel = new Hotel();
 
