@@ -12,23 +12,24 @@ namespace Hotelaria
     {
 
         public string NomeHotel;
-        //Estrutura para criar uma lista de quartos totais do hotel, tais como uma lista de clientes
+        //Estrutura para criar uma lista de quartos totais do hotel
         public List<Quarto> Quartos { get; set; }
-        public List<Clientes> Cliente { get; set; }
+     
 
-        // Construtor padrão
+        // Construtor
         public Hotel()
         {
             Quartos = new List<Quarto>();
 
-            Cliente = new List<Clientes>();
         }
 
-        // Método para adicionar um quarto com base no ID
+        // Método para adicionar um quarto com base no numero pedodp
         public void AdicionarQuarto(int id)
         {
-            Quarto novoQuarto = new Quarto { quartoID = id };
+            Quarto novoQuarto = new Quarto { quartoID = id};
+        
             Quartos.Add(novoQuarto);
+            
         }
 
     }
