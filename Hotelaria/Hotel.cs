@@ -1,4 +1,6 @@
 ﻿using System;
+//para escrever em ficheiros
+using System.IO;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -26,10 +28,20 @@ namespace Hotelaria
         // Método para adicionar um quarto com base no numero pedodp
         public void AdicionarQuarto(int id)
         {
-            Quarto novoQuarto = new Quarto { quartoID = id};
-        
+            Quarto novoQuarto = new Quarto { QuartoID = id};
             Quartos.Add(novoQuarto);
             
+        }
+
+
+        //função para adicionar o nome do hotel
+        public void WriteTextToFile(string filePath, string text)
+        {
+            // Use a StreamWriter to write the string to the file
+            using (StreamWriter writer = new StreamWriter(filePath))
+            {
+                writer.Write(text);
+            }
         }
 
     }
