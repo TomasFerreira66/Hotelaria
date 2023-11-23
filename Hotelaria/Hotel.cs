@@ -14,6 +14,8 @@ namespace Hotelaria
     {
 
         public string NomeHotel;
+     
+        
         //Estrutura para criar uma lista de quartos totais do hotel
         public List<Quarto> Quartos { get; set; }
      
@@ -52,6 +54,23 @@ namespace Hotelaria
                 writer.Write(text);
             }
         }
+
+        public string ReadTextFromFile(string fileName)
+        {
+            string currentDirectory = Environment.CurrentDirectory;
+            string projectDirectory = Path.Combine(currentDirectory, "..//..");
+            string filePath = Path.Combine(projectDirectory, fileName);
+
+            if (File.Exists(filePath))
+            {
+                return File.ReadAllText(filePath);
+            }
+            else
+            {
+                Console.WriteLine($"File '{fileName}' not found.");
+                return null; // or throw an exception, depending on your application's requirements
+            }
+        }   
 
     }
 }
