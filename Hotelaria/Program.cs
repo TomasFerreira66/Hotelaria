@@ -11,7 +11,7 @@ namespace Hotelaria
     {
         static void Main(string[] args)
         {
-
+            //string path para ficheiro txt
             string filePath = "../nomeHotel.txt";
 
 
