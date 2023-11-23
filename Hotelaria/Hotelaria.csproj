@@ -54,6 +54,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="nomeHotel.txt" />
+    <Content Include="numeroQuartos.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

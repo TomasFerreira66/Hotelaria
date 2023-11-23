@@ -35,8 +35,17 @@ namespace Hotelaria
 
 
         //função para adicionar o nome do hotel
-        public void WriteTextToFile(string filePath, string text)
+        public void WriteTextToFile(string fileName, string text)
         {
+
+            string currentDirectory = Environment.CurrentDirectory;
+
+            string projectDirectory = Path.Combine(currentDirectory, "..//..");
+
+
+            string filePath = Path.Combine(projectDirectory, fileName);
+
+
             // Use a StreamWriter to write the string to the file
             using (StreamWriter writer = new StreamWriter(filePath))
             {
