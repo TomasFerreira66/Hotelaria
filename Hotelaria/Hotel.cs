@@ -14,8 +14,6 @@ namespace Hotelaria
     {
 
         public string NomeHotel;
-     
-        
         //Estrutura para criar uma lista de quartos totais do hotel
         public List<Quarto> Quartos { get; set; }
      
@@ -55,6 +53,7 @@ namespace Hotelaria
             }
         }
 
+<<<<<<< HEAD
         public string ReadTextFromFile(string fileName)
         {
             string currentDirectory = Environment.CurrentDirectory;
@@ -67,10 +66,12 @@ namespace Hotelaria
             }
             else
             {
-                Console.WriteLine($"File '{fileName}' not found.");
+              
                 return null; // or throw an exception, depending on your application's requirements
             }
         }   
 
+=======
+>>>>>>> parent of 401dba2 (aaa)
     }
 }
