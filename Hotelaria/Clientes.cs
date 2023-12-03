@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 namespace Hotelaria
 {
 
-    //Classe Clientes, está classe é do registo de clientes onde podemos obter dados pessoais do Cliente com base no quarto que está estadiado
+    //Classe Clientes, está classe é do registo de clientes onde podemos obter dados pessoais do Cliente
     public class Clientes
     {
         private string nome;

@@ -58,7 +58,7 @@ namespace Hotelaria
                 //cria os ficheiros .dat para cada quarto
                 for (int i = 0; i < numeroTotal; i++)
                     {
-                    string fileName = $"quarto_{i}.dat";
+                    string fileName = $"{i}.dat";
                     meuHotel.WriteTextToFile(fileName, "d");
                 }
 
@@ -67,7 +67,6 @@ namespace Hotelaria
 
 
             //programa começa aqui 
-
 
             //cria as listas
             for (int i = 0; i < numeroTotal; i++)
@@ -82,6 +81,9 @@ namespace Hotelaria
             }
             Console.ReadLine();
 
+
+            Console.WriteLine("Menu");
+            Console.WriteLine("Menu");
 
 
 
