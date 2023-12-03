@@ -11,29 +11,36 @@ namespace Hotelaria
     {
         static void Main(string[] args)
         {
-            //string path para ficheiro txt
+
+            //cria um hotel
+            Hotel meuHotel = new Hotel();
+            
+            
             string fileNameNomeHotel = "nomeHotel.txt";
             string fileNameNumeroQuartos = "numeroQuartos.txt";
 
-            // Cria um hotel
-            Hotel meuHotel = new Hotel();
+          
 
-<<<<<<< HEAD
-            // string for txt file
-            string fileNameNomeHotel = "nomeHotel.txt";
 
-            // variable for total number of rooms
-            int numeroTotal = 0; // Initialize it outside the if statement
+            int numeroTotal = 0;
             string numeroQuartos;
 
-            // nomeDoHotel takes the value from the content inside nomeHotel.txt
+            //da valor ao nomeDoHotel apartir do conteudo do ficheiro txt
             string nomeDoHotel = meuHotel.ReadTextFromFile(fileNameNomeHotel);
 
-            // Check if nomeDoHotel has content; if it does, display it; otherwise, proceed with setup
+            //Verifica se o ficheiro nomeHotel tem conteudo, se sim, o programa continua, senão vai para o setup
             if (!string.IsNullOrEmpty(nomeDoHotel))
             {
+
+                
                 Console.WriteLine($"Nome do hotel encontrado: {nomeDoHotel}");
+
+                //verifica o numero de quartos dentro do ficheiro txt para depois usar esse valor para criar uma lista de Quartos
+                numeroQuartos = meuHotel.ReadTextFromFile(fileNameNumeroQuartos);
+                numeroTotal = Convert.ToInt32(numeroQuartos);
+
             }
+            //setup
             else
             {
                 Console.WriteLine("Bem vindo ao setup do seu hotel!");
@@ -45,30 +52,24 @@ namespace Hotelaria
 
                 Console.WriteLine("Quantos quartos tem o seu hotel?");
                 numeroQuartos = Console.ReadLine();
+                meuHotel.WriteTextToFile(fileNameNumeroQuartos, numeroQuartos);
                 numeroTotal = Convert.ToInt32(numeroQuartos);
 
-
+                //cria os ficheiros .dat para cada quarto
+                for (int i = 0; i < numeroTotal; i++)
+                    {
+                    string fileName = $"quarto_{i}.dat";
+                    meuHotel.WriteTextToFile(fileName, "d");
+                }
 
             }
 
-            // Call the AdicionarQuartos method and create an empty list with the total number of rooms.
-=======
-            Console.WriteLine("Bem vindo ao setup do seu hotel!");
-            Console.WriteLine("Para começar, degite o nome do seu hotel");
-            string nomeDoHotel = Console.ReadLine();
-
-            //guarda o nome ao hotel num ficheiro de text
-            meuHotel.WriteTextToFile(fileNameNomeHotel, nomeDoHotel);
 
 
-            Console.WriteLine("Quantos quartos tem o seu hotel?");
-            string numeroQuartos = Console.ReadLine();
+            //programa começa aqui 
 
-            //guarda o numero de quartos num ficheiro de texto
-            meuHotel.WriteTextToFile(fileNameNumeroQuartos, numeroQuartos);
 
-            int numeroTotal = 5;
->>>>>>> parent of 401dba2 (aaa)
+            //cria as listas
             for (int i = 0; i < numeroTotal; i++)
             {
                 meuHotel.AdicionarQuarto(i);
@@ -77,7 +78,7 @@ namespace Hotelaria
             foreach (Quarto quarto in meuHotel.Quartos)
             {
                 Console.WriteLine($"Quarto teste {quarto.QuartoID}");
-                
+          
             }
             Console.ReadLine();
 

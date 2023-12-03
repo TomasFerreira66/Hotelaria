@@ -25,16 +25,9 @@ namespace Hotelaria
 
         }
 
-        // Método para adicionar um quarto com base no numero pedodp
-        public void AdicionarQuarto(int id)
-        {
-            Quarto novoQuarto = new Quarto { QuartoID = id};
-            Quartos.Add(novoQuarto);
-            
-        }
 
 
-        //função para adicionar o nome do hotel
+        //função para adicionar o nome do hotel e o numero de quartos
         public void WriteTextToFile(string fileName, string text)
         {
 
@@ -53,7 +46,6 @@ namespace Hotelaria
             }
         }
 
-<<<<<<< HEAD
         public string ReadTextFromFile(string fileName)
         {
             string currentDirectory = Environment.CurrentDirectory;
@@ -69,9 +61,19 @@ namespace Hotelaria
               
                 return null; // or throw an exception, depending on your application's requirements
             }
-        }   
+        }
 
-=======
->>>>>>> parent of 401dba2 (aaa)
+
+        // Método para adicionar um quarto com base no numero pedodp
+        public void AdicionarQuarto(int id)
+        {
+            Quarto novoQuarto = new Quarto { QuartoID = id };
+            Quartos.Add(novoQuarto);
+
+        }
+
+
+
+
     }
 }
