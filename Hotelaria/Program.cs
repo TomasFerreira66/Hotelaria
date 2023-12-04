@@ -14,6 +14,8 @@ namespace Hotelaria
 
             //cria um hotel
             Hotel meuHotel = new Hotel();
+            //inicia a classe dos menus
+            Menus Menu = new Menus();
             
             
             string fileNameNomeHotel = "nomeHotel.txt";
@@ -33,7 +35,7 @@ namespace Hotelaria
             {
 
                 
-                Console.WriteLine($"Nome do hotel encontrado: {nomeDoHotel}");
+                Console.WriteLine($"Menu Hotel {nomeDoHotel}");
 
                 //verifica o numero de quartos dentro do ficheiro txt para depois usar esse valor para criar uma lista de Quartos
                 numeroQuartos = meuHotel.ReadTextFromFile(fileNameNumeroQuartos);
@@ -58,8 +60,10 @@ namespace Hotelaria
                 //cria os ficheiros .dat para cada quarto
                 for (int i = 0; i < numeroTotal; i++)
                     {
-                    string fileName = $"{i}.dat";
-                    meuHotel.WriteTextToFile(fileName, "d");
+                    string fileNameQuarto = $"{i}.dat";
+                    string fileNameCliente = $"Cliente {i}.dat";
+                    meuHotel.WriteTextToFile(fileNameQuarto, "d");
+                    meuHotel.WriteTextToFile(fileNameCliente, "d");
                 }
 
             }
@@ -79,11 +83,21 @@ namespace Hotelaria
                 Console.WriteLine($"Quarto teste {quarto.QuartoID}");
           
             }
-            Console.ReadLine();
 
 
-            Console.WriteLine("Menu");
-            Console.WriteLine("Menu");
+            Menu.MenuPrincipal();
+            string opcao = Console.ReadLine();
+
+            if (opcao == "1")
+            {
+                Menu.MenuQuartos();
+            }
+
+
+
+
+
+
 
 
 
