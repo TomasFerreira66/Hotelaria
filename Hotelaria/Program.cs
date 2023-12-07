@@ -13,58 +13,33 @@ namespace Hotelaria
         {
 
             //cria um hotel
-            Hotel meuHotel = new Hotel();
+            HotelController hotelController = new HotelController();
             //inicia a classe dos menus
-            Menus Menu = new Menus();
+            HotelViews hotelViews = new HotelViews();
             
             
             string fileNameNomeHotel = "nomeHotel.txt";
             string fileNameNumeroQuartos = "numeroQuartos.txt";
-
-          
-
-
             int numeroTotal = 0;
             string numeroQuartos;
 
             //da valor ao nomeDoHotel apartir do conteudo do ficheiro txt
-            string nomeDoHotel = meuHotel.ReadTextFromFile(fileNameNomeHotel);
+            string nomeDoHotel = hotelController.ReadTextFromFile(fileNameNomeHotel);
 
             //Verifica se o ficheiro nomeHotel tem conteudo, se sim, o programa continua, senão vai para o setup
             if (!string.IsNullOrEmpty(nomeDoHotel))
-            {
-
-                
+            {         
                 Console.WriteLine($"Menu Hotel {nomeDoHotel}");
 
                 //verifica o numero de quartos dentro do ficheiro txt para depois usar esse valor para criar uma lista de Quartos
-                numeroQuartos = meuHotel.ReadTextFromFile(fileNameNumeroQuartos);
+                numeroQuartos = hotelController.ReadTextFromFile(fileNameNumeroQuartos);
                 numeroTotal = Convert.ToInt32(numeroQuartos);
 
             }
             //setup
             else
             {
-                Console.WriteLine("Bem vindo ao setup do seu hotel!");
-                Console.WriteLine("Para começar, digite o nome do seu hotel");
-                nomeDoHotel = Console.ReadLine();
-
-                // Save the nomeDoHotel to the file
-                meuHotel.WriteTextToFile(fileNameNomeHotel, nomeDoHotel);
-
-                Console.WriteLine("Quantos quartos tem o seu hotel?");
-                numeroQuartos = Console.ReadLine();
-                meuHotel.WriteTextToFile(fileNameNumeroQuartos, numeroQuartos);
-                numeroTotal = Convert.ToInt32(numeroQuartos);
-
-                //cria os ficheiros .dat para cada quarto
-                for (int i = 0; i < numeroTotal; i++)
-                    {
-                    string fileNameQuarto = $"{i}.dat";
-                    string fileNameCliente = $"Cliente {i}.dat";
-                    meuHotel.WriteTextToFile(fileNameQuarto, "d");
-                    meuHotel.WriteTextToFile(fileNameCliente, "d");
-                }
+                hotelViews.Setup(hotelController, fileNameNomeHotel, fileNameNumeroQuartos);
 
             }
 
@@ -72,25 +47,25 @@ namespace Hotelaria
 
             //programa começa aqui 
 
-            //cria as listas
+            //cria os quartos na lista
             for (int i = 0; i < numeroTotal; i++)
             {
-                meuHotel.AdicionarQuarto(i);
+                hotelController.AdicionarQuarto(i);
             }
 
-            foreach (Quarto quarto in meuHotel.Quartos)
+            foreach (Quarto quarto in hotelController.Quartos)
             {
                 Console.WriteLine($"Quarto teste {quarto.QuartoID}");
           
             }
 
 
-            Menu.MenuPrincipal();
+            hotelViews.MenuPrincipal();
             string opcao = Console.ReadLine();
 
             if (opcao == "1")
             {
-                Menu.MenuQuartos();
+                hotelViews.MenuQuartos();
             }
 
 

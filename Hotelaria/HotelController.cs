@@ -9,8 +9,9 @@ using System.Threading.Tasks;
 namespace Hotelaria
 {
 
-    //Classe hotel servira para relacionar dados e construir funções usando as outras classes
-    public class Hotel
+    
+    //Classe hotelController servira para manipular dados
+    public class HotelController
     {
 
         public string NomeHotel;
@@ -19,7 +20,7 @@ namespace Hotelaria
      
 
         // Construtor
-        public Hotel()
+        public HotelController()
         {
             Quartos = new List<Quarto>();
 
@@ -64,7 +65,7 @@ namespace Hotelaria
         }
 
 
-        // Método para adicionar um quarto com base no numero pedodp
+        // Método para adicionar um quarto com base no numero pedido
         public void AdicionarQuarto(int id)
         {
             Quarto novoQuarto = new Quarto { QuartoID = id };
