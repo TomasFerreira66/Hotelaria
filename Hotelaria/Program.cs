@@ -30,36 +30,33 @@ namespace Hotelaria
             if (!string.IsNullOrEmpty(nomeDoHotel))
             {         
                 Console.WriteLine($"Menu Hotel {nomeDoHotel}");
-
-                //verifica o numero de quartos dentro do ficheiro txt para depois usar esse valor para criar uma lista de Quartos
-                numeroQuartos = hotelController.ReadTextFromFile(fileNameNumeroQuartos);
-                numeroTotal = Convert.ToInt32(numeroQuartos);
-
+               
             }
             //setup
             else
             {
                 hotelViews.Setup(hotelController, fileNameNomeHotel, fileNameNumeroQuartos);
-
+                hotelController.SerializeObject(hotelController.QuartosList, "quartosData.dat");
             }
 
 
 
             //programa começa aqui 
 
-            //cria os quartos na lista
-            for (int i = 0; i < numeroTotal; i++)
+
+            //da load aos dados default
+            List<Quarto> loadedQuartos = hotelController.DeserializeObject<List<Quarto>>("quartosData.dat");
+            //teste para verse ta a funcionar o loadedQuartos
+            foreach (Quarto quarto in loadedQuartos)
             {
-                hotelController.AdicionarQuarto(i);
+                Console.WriteLine($"Quarto teste {quarto.QuartoID}, {quarto.Estado}, {quarto.Cliente.Email}");
+
             }
 
-            foreach (Quarto quarto in hotelController.Quartos)
-            {
-                Console.WriteLine($"Quarto teste {quarto.QuartoID}");
-          
-            }
+           
 
 
+            //Menu
             hotelViews.MenuPrincipal();
             string opcao = Console.ReadLine();
 
@@ -68,6 +65,7 @@ namespace Hotelaria
                 hotelViews.MenuQuartos();
             }
 
+            
 
 
 

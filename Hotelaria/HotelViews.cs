@@ -50,18 +50,12 @@ namespace Hotelaria
             Console.WriteLine("Quantos quartos tem o seu hotel?");
             string numeroQuartos = Console.ReadLine();
             hotelController.WriteTextToFile(fileNameNumeroQuartos, numeroQuartos);
-            int numeroTotal = Convert.ToInt32(numeroQuartos);
-
-            //cria os ficheiros .dat para cada quarto
+            //da valores default à lista para depois guardar num ficheiro .dat
+            int numeroTotal = int.Parse(numeroQuartos);
             for (int i = 0; i < numeroTotal; i++)
             {
-                string fileNameQuarto = $"{i}.dat";
-                string fileNameCliente = $"Cliente {i}.dat";
-                hotelController.WriteTextToFile(fileNameQuarto, "d");
-                hotelController.WriteTextToFile(fileNameCliente, "d");
+                hotelController.AdicionarQuarto(i);
             }
-
-
         }
 
     }

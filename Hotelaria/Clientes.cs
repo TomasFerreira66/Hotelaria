@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Runtime.Serialization;
+using System.Runtime.Serialization.Formatters.Binary;
 
 
 
@@ -10,6 +12,8 @@ namespace Hotelaria
 {
 
     //Classe Clientes, está classe é do registo de clientes onde podemos obter dados pessoais do Cliente
+
+    [Serializable]
     public class Clientes
     {
         private string nome;
@@ -17,7 +21,7 @@ namespace Hotelaria
         private int telemovel;
         private string email;
 
-        public Clientes() { }
+        
         public string Nome
         {
             get { return nome; }
@@ -42,6 +46,13 @@ namespace Hotelaria
             set { email = value; }
         }
 
+        public Clientes()
+        {
+
+            email = "TESTE";
+
+
+        }
 
 
     }

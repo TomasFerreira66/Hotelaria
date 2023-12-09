@@ -5,6 +5,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Runtime.Serialization;
+using System.Runtime.Serialization.Formatters.Binary;
+
 
 namespace Hotelaria
 {
@@ -16,13 +19,13 @@ namespace Hotelaria
 
         public string NomeHotel;
         //Estrutura para criar uma lista de quartos totais do hotel
-        public List<Quarto> Quartos { get; set; }
+        public List<Quarto> QuartosList { get; set; }
      
 
         // Construtor
         public HotelController()
         {
-            Quartos = new List<Quarto>();
+            QuartosList = new List<Quarto>();
 
         }
 
@@ -65,11 +68,43 @@ namespace Hotelaria
         }
 
 
+
+        //Metodo para serializar a lista e guardar dados
+        public void SerializeObject(object obj, string fileName)
+        {
+
+            string currentDirectory = Environment.CurrentDirectory;
+            string projectDirectory = Path.Combine(currentDirectory, "..//..");
+            string filePath = Path.Combine(projectDirectory, fileName);
+
+            using (FileStream fileStream = new FileStream(filePath, FileMode.Create))
+            {
+                BinaryFormatter binaryFormatter = new BinaryFormatter();
+                binaryFormatter.Serialize(fileStream, obj);
+            }
+        }
+
+        public T DeserializeObject<T>(string fileName)
+        {
+
+            string currentDirectory = Environment.CurrentDirectory;
+            string projectDirectory = Path.Combine(currentDirectory, "..//..");
+            string filePath = Path.Combine(projectDirectory, fileName);
+
+            using (FileStream fileStream = new FileStream(filePath, FileMode.Open))
+            {
+                BinaryFormatter binaryFormatter = new BinaryFormatter();
+                return (T)binaryFormatter.Deserialize(fileStream);
+            }
+        }
+
         // Método para adicionar um quarto com base no numero pedido
         public void AdicionarQuarto(int id)
         {
-            Quarto novoQuarto = new Quarto { QuartoID = id };
-            Quartos.Add(novoQuarto);
+            Quarto novoQuarto = new Quarto();
+            novoQuarto.QuartoID = id;
+          
+            QuartosList.Add(novoQuarto);
 
         }
 
