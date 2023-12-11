@@ -103,11 +103,13 @@ namespace Hotelaria
         {
             Quarto novoQuarto = new Quarto();
             novoQuarto.QuartoID = id;
-          
+            
             QuartosList.Add(novoQuarto);
 
         }
 
+     
+      
 
 
 

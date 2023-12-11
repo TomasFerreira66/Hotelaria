@@ -25,7 +25,7 @@ namespace Hotelaria
         public Quarto()
         {
             estado = "Disponivel";
-            preco = 0;
+            preco = 50;
             Cliente = new Clientes();
         }
 

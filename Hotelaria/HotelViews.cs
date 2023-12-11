@@ -6,11 +6,12 @@ using System.Threading.Tasks;
 
 namespace Hotelaria
 {
+    //Class UI e mostrar dados
     public class HotelViews
     {
 
 
-        //Class UI e mostrar dados
+        //Menu principal e respetivos metodos
 
         public void MenuPrincipal()
         {
@@ -20,11 +21,21 @@ namespace Hotelaria
             Console.WriteLine("");
             Console.WriteLine("Escolha uma opção");
             Console.WriteLine("1 - Ver informação quartos");
-            Console.WriteLine("2 - Realizar Check-IN");
-            Console.WriteLine("3 - Realizar Check-Out");
+            Console.WriteLine("2 - Realizar reserva");
+            Console.WriteLine("3 - Realizar Check-IN");
+            Console.WriteLine("4 - Realizar Check-Out");
+            Console.WriteLine("5 - Sair");
         }
 
+        public int MenuPrincipalEscolha()
+        {
+            return Convert.ToInt32(Console.ReadLine());
+        }
 
+        /////////
+
+
+        //Menu quartos e os respetivos metodos
         public void MenuQuartos()
         {
             Console.WriteLine("Escolha uma opção");
@@ -33,8 +44,17 @@ namespace Hotelaria
             Console.WriteLine("Listar todos os quartos");
             Console.WriteLine("Listar quartos livres");
             Console.WriteLine("");
-            Console.ReadLine();
+
         }
+
+        public int MenuQuartosEscolha()
+        {
+            Console.Write("Escolha:");
+            return Convert.ToInt32(Console.ReadLine());
+
+        }
+
+
 
 
         //metodo para o setup da programa Hotel
@@ -58,6 +78,42 @@ namespace Hotelaria
             }
         }
 
+
+        //MudarPrecoQuarto
+        public void MudarPreco(List<Quarto> loadedQuartos, HotelController hotelController)
+        {
+
+            // Mudar preço de um quarto
+            Console.WriteLine("Digite o número do quarto que deseja modificar o preço:");
+            int numeroQuarto = Convert.ToInt32(Console.ReadLine());
+
+            // Find the room with the specified number in the loadedQuartos list
+            Quarto quartoParaModificar = loadedQuartos.FirstOrDefault(q => q.QuartoID == numeroQuarto);
+
+            if (quartoParaModificar != null)
+            {
+                Console.WriteLine($"O preço atual do quarto {quartoParaModificar.QuartoID} é {quartoParaModificar.Preco}");
+                Console.WriteLine("Digite o novo preço:");
+                int novoPreco = Convert.ToInt32(Console.ReadLine());
+
+                // Update the room's price in the loadedQuartos list
+                quartoParaModificar.Preco = novoPreco;
+
+                // Save the updated list to the file
+                hotelController.SerializeObject(loadedQuartos, "quartosData.dat");
+
+                Console.WriteLine($"Preço do quarto {quartoParaModificar.QuartoID} modificado para {quartoParaModificar.Preco}");
+            }
+            else
+            {
+                Console.WriteLine($"Quarto com o número {numeroQuarto} não encontrado.");
+            }
+        }
+
+     
+
+        
+
     }
 }
-    
+

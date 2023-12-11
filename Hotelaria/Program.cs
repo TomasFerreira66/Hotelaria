@@ -11,18 +11,18 @@ namespace Hotelaria
     {
         static void Main(string[] args)
         {
-
+           
             //cria um hotel
             HotelController hotelController = new HotelController();
             //inicia a classe dos menus
             HotelViews hotelViews = new HotelViews();
-            
-            
+
+            List<Quarto> loadedQuartos;
+
+           
             string fileNameNomeHotel = "nomeHotel.txt";
             string fileNameNumeroQuartos = "numeroQuartos.txt";
-            int numeroTotal = 0;
-            string numeroQuartos;
-
+           
             //da valor ao nomeDoHotel apartir do conteudo do ficheiro txt
             string nomeDoHotel = hotelController.ReadTextFromFile(fileNameNomeHotel);
 
@@ -40,32 +40,78 @@ namespace Hotelaria
             }
 
 
-
+            
             //programa começa aqui 
 
 
-            //da load aos dados default
-            List<Quarto> loadedQuartos = hotelController.DeserializeObject<List<Quarto>>("quartosData.dat");
-            //teste para verse ta a funcionar o loadedQuartos
-            foreach (Quarto quarto in loadedQuartos)
+            bool terminarPrograma = true;
+
+            do {
+                
+                //vai buscar os dados ao ficheiro.dat
+                loadedQuartos = hotelController.DeserializeObject<List<Quarto>>("quartosData.dat");
+                //Menu
+                hotelViews.MenuPrincipal();
+
+            int escolha = hotelViews.MenuPrincipalEscolha();
+
+            switch (escolha)
             {
-                Console.WriteLine($"Quarto teste {quarto.QuartoID}, {quarto.Estado}, {quarto.Cliente.Email}");
 
-            }
+                    //Muda para o menu dos quartos
+                case 1:
+                        hotelViews.MenuQuartos();
 
-           
+                        int escolhaQuartos = hotelViews.MenuQuartosEscolha();
+
+                        switch (escolhaQuartos)
+                        {
+                            //Mudar de preço
+                            case 1:
+                                    Console.Clear();
+                                    hotelViews.MudarPreco(loadedQuartos, hotelController);
+
+                            break;
 
 
-            //Menu
-            hotelViews.MenuPrincipal();
-            string opcao = Console.ReadLine();
+                            //Listar todos os quartos
+                            case 3:
+                                    Console.Clear();
+                                    foreach (Quarto quarto in loadedQuartos)
+                                 {
+                                   Console.WriteLine($"Quarto teste {quarto.QuartoID}, {quarto.Estado}, {quarto.Cliente.Email}, {quarto.Preco}");
+                                 }
 
-            if (opcao == "1")
-            {
-                hotelViews.MenuQuartos();
-            }
+                            break;
 
-            
+
+                            
+
+
+
+
+              
+
+                            default:
+                                Console.WriteLine("Opção inválida.");
+                                break;
+                        }
+                        break;
+
+                    //acaba com o loop, matando o programa
+                    case 5:
+                        terminarPrograma = false;
+                    break;
+                        
+                        // Add other cases for other options in MenuPrincipal if needed
+                }
+            } while (terminarPrograma == true);
+
+        }
+
+
+
+
 
 
 
@@ -79,4 +125,3 @@ namespace Hotelaria
     }
 
 
-}
