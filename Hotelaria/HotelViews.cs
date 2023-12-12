@@ -1,4 +1,13 @@
-﻿using System;
+﻿/* 
+@file HotelViews.cs
+@author Tomás Fernandes Ferreira (a20457@alunos.ipca.pt)
+@author Tiago Amadeu Silva Sousa (a20735@alunos.ipca.pt)
+@brief
+@date dezembro 2023
+@copyright Copyright (c) 2023
+*/
+
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -11,6 +20,7 @@ namespace Hotelaria
     {
 
 
+        #region Menus
         //Menu principal e respetivos metodos
 
         public void MenuPrincipal()
@@ -32,7 +42,7 @@ namespace Hotelaria
             return Convert.ToInt32(Console.ReadLine());
         }
 
-        /////////
+          
 
 
         //Menu quartos e os respetivos metodos
@@ -54,10 +64,15 @@ namespace Hotelaria
 
         }
 
+        #endregion
 
-
-
-        //metodo para o setup da programa Hotel
+        #region Metodos
+        /// <summary>
+        /// Método para realizar o setup do programa.
+        /// </summary>
+        /// <param name="hotelController"></param>
+        /// <param name="fileNameNomeHotel"></param>
+        /// <param name="fileNameNumeroQuartos"></param>
         public void Setup(HotelController hotelController, string fileNameNomeHotel, string fileNameNumeroQuartos)
         {
             Console.WriteLine("Bem vindo ao setup do seu hotel!");
@@ -79,7 +94,12 @@ namespace Hotelaria
         }
 
 
-        //MudarPrecoQuarto
+
+        /// <summary>
+        /// Método para mudar os preços de cada quarto.
+        /// </summary>
+        /// <param name="loadedQuartos"></param>
+        /// <param name="hotelController"></param>
         public void MudarPreco(List<Quarto> loadedQuartos, HotelController hotelController)
         {
 
@@ -111,7 +131,10 @@ namespace Hotelaria
         }
 
      
-        //Mostrar informações de todos os quartos
+        /// <summary>
+        /// Metodo para ver as informações de todos os quartos.
+        /// </summary>
+        /// <param name="loadedQuartos"></param>
         public void VerInformacoesQuartos(List<Quarto> loadedQuartos)
         {
 
@@ -132,6 +155,80 @@ namespace Hotelaria
         }
 
 
+        /// <summary>
+        /// Método para ver informações de um quarto.
+        /// </summary>
+        /// <param name="loadedQuartos"></param>
+        public void VerInformacaoUmQuarto(List<Quarto> loadedQuartos)
+        {
+           
+            Console.WriteLine("Lista quartos");
+
+            foreach (Quarto quarto in loadedQuartos)
+            {
+                Console.WriteLine($"Quarto {quarto.QuartoID}");
+            }
+
+            Console.WriteLine("Escolha um quarto");
+            int escolha = Convert.ToInt32(Console.ReadLine());
+
+            Quarto mostrarQuarto = loadedQuartos.FirstOrDefault(q => q.QuartoID == escolha);
+
+            Console.WriteLine($"Quarto {mostrarQuarto.QuartoID}:");
+            Console.WriteLine($"Estado: {mostrarQuarto.Estado}, Preço: {mostrarQuarto.Preco}");
+            Console.WriteLine("");
+            if (mostrarQuarto.Estado == "Disponivel")
+            {
+                Console.WriteLine($"Cliente: {mostrarQuarto.Cliente.Nome} ");
+                Console.WriteLine($"CC: {mostrarQuarto.Cliente.CC}, Numero Telemovel: {mostrarQuarto.Cliente.Telemovel}, Email: {mostrarQuarto.Cliente.Email}");
+            }
+        }
+
+
+        public void ListarQuartosLivresOcupados(List<Quarto> loadedQuartos)
+        {
+            Console.WriteLine("Deseja ver:");
+            Console.WriteLine("1 - Disponíveis");
+            Console.WriteLine("2 - Ocupados");
+
+            int escolha = Convert.ToInt32(Console.ReadLine());
+
+            switch (escolha)
+            {
+                case 1:
+                    Console.WriteLine("Quartos Disponíveis:");
+                    foreach (Quarto quarto in loadedQuartos)
+                    {
+                        if (quarto.Estado == "Disponivel")
+                        {
+                            Console.WriteLine($"Número do Quarto: {quarto.QuartoID}, Estado: {quarto.Estado}");
+                            // Add other relevant information about the room if needed
+                        }
+                    }
+                    break;
+
+                case 2:
+                    Console.WriteLine("Quartos Ocupados:");
+                    foreach (Quarto quarto in loadedQuartos)
+                    {
+                        if (quarto.Estado == "Ocupado")
+                        {
+                            Console.WriteLine($"Número do Quarto: {quarto.QuartoID}, Estado: {quarto.Estado}");
+                          
+                        }
+                    }
+                    break;
+
+                default:
+                    Console.WriteLine("Escolha inválida.");
+                    break;
+            }
+        }
+
+
+
+
+        #endregion
     }
 }
 

@@ -1,5 +1,13 @@
-﻿using System;
-//para escrever em ficheiros
+﻿/* 
+@file HotelController.cs
+@author Tomás Fernandes Ferreira (a20457@alunos.ipca.pt)
+@author Tiago Amadeu Silva Sousa (a20735@alunos.ipca.pt)
+@brief
+@date dezembro 2023
+@copyright Copyright (c) 2023
+*/
+
+using System;
 using System.IO;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,21 +25,29 @@ namespace Hotelaria
     public class HotelController
     {
 
+        #region Atributos
         public string NomeHotel;
         //Estrutura para criar uma lista de quartos totais do hotel
         public List<Quarto> QuartosList { get; set; }
-     
+        #endregion
 
-        // Construtor
+
+
+        #region Constructor
         public HotelController()
         {
             QuartosList = new List<Quarto>();
 
         }
+        #endregion
 
 
-
-        //função para adicionar o nome do hotel e o numero de quartos
+        #region Métodos
+        /// <summary>
+        /// Metodo para adicionar dados num ficheiro de texto
+        /// </summary>
+        /// <param name="fileName"></param>
+        /// <param name="text"></param>
         public void WriteTextToFile(string fileName, string text)
         {
 
@@ -50,6 +66,12 @@ namespace Hotelaria
             }
         }
 
+        
+        /// <summary>
+        /// Metodo para ler dados de ficheiro de texto
+        /// </summary>
+        /// <param name="fileName"></param>
+        /// <returns></returns>
         public string ReadTextFromFile(string fileName)
         {
             string currentDirectory = Environment.CurrentDirectory;
@@ -69,7 +91,11 @@ namespace Hotelaria
 
 
 
-        //Metodo para serializar a lista e guardar dados
+        /// <summary>
+        /// Metodo para guardar a list de quartos num ficheiro binário.
+        /// </summary>
+        /// <param name="obj"></param>
+        /// <param name="fileName"></param>
         public void SerializeObject(object obj, string fileName)
         {
 
@@ -84,6 +110,12 @@ namespace Hotelaria
             }
         }
 
+        /// <summary>
+        /// Método para ir buscar os dados ao ficheiro binario
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="fileName"></param>
+        /// <returns></returns>
         public T DeserializeObject<T>(string fileName)
         {
 
@@ -98,7 +130,10 @@ namespace Hotelaria
             }
         }
 
-        // Método para adicionar um quarto com base no numero pedido
+        /// <summary>
+        /// Método para adicionar quartos na lista Quartos, este método é utilizado no SETUP do programa.
+        /// </summary>
+        /// <param name="id"></param>
         public void AdicionarQuarto(int id)
         {
             Quarto novoQuarto = new Quarto();
@@ -108,8 +143,8 @@ namespace Hotelaria
 
         }
 
-     
-      
+        #endregion
+
 
 
 

@@ -1,4 +1,12 @@
-﻿using System.IO;
+﻿/* 
+@file Program.cs
+@author Tomás Fernandes Ferreira (a20457@alunos.ipca.pt)
+@author Tiago Amadeu Silva Sousa (a20735@alunos.ipca.pt)
+@brief
+@date dezembro 2023
+@copyright Copyright (c) 2023
+*/
+using System.IO;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,85 +19,62 @@ namespace Hotelaria
     {
         static void Main(string[] args)
         {
-           
-            //cria um hotel
+            #region Atributos
             HotelController hotelController = new HotelController();
-            //inicia a classe dos menus
             HotelViews hotelViews = new HotelViews();
-
             List<Quarto> loadedQuartos;
-
-           
             string fileNameNomeHotel = "nomeHotel.txt";
             string fileNameNumeroQuartos = "numeroQuartos.txt";
-           
-            //da valor ao nomeDoHotel apartir do conteudo do ficheiro txt
             string nomeDoHotel = hotelController.ReadTextFromFile(fileNameNomeHotel);
+            #endregion
 
-            //Verifica se o ficheiro nomeHotel tem conteudo, se sim, o programa continua, senão vai para o setup
-            if (!string.IsNullOrEmpty(nomeDoHotel))
-            {         
-                Console.WriteLine($"Menu Hotel {nomeDoHotel}");
-               
-            }
-            //setup
-            else
+            
+
+            if (string.IsNullOrEmpty(nomeDoHotel))
             {
                 hotelViews.Setup(hotelController, fileNameNomeHotel, fileNameNumeroQuartos);
                 hotelController.SerializeObject(hotelController.QuartosList, "quartosData.dat");
             }
-
-
-            
-            //programa começa aqui 
-
+            else
+            {
+                Console.WriteLine($"Menu Hotel {nomeDoHotel}");
+            }
 
             bool terminarPrograma = true;
 
-            do {
-                
-                //vai buscar os dados ao ficheiro.dat
-                loadedQuartos = hotelController.DeserializeObject<List<Quarto>>("quartosData.dat");
-                //Menu
-                hotelViews.MenuPrincipal();
-
-            int escolha = hotelViews.MenuPrincipalEscolha();
-
-            switch (escolha)
+            do
             {
+                loadedQuartos = hotelController.DeserializeObject<List<Quarto>>("quartosData.dat");
+                hotelViews.MenuPrincipal();
+                int escolha = hotelViews.MenuPrincipalEscolha();
 
-                    //Muda para o menu dos quartos
-                case 1:
+                switch (escolha)
+                {
+                    case 1:
                         hotelViews.MenuQuartos();
-
                         int escolhaQuartos = hotelViews.MenuQuartosEscolha();
 
                         switch (escolhaQuartos)
                         {
-                            //Mudar de preço
                             case 1:
-                                    Console.Clear();
-                                    hotelViews.MudarPreco(loadedQuartos, hotelController);
-
+                                Console.Clear();
+                                hotelViews.MudarPreco(loadedQuartos, hotelController);
                                 break;
 
-
                             case 2:
-                              
-                            break;
-                            //Listar todos os quartos
+                                Console.Clear();
+                                hotelViews.VerInformacaoUmQuarto(loadedQuartos);
+                                break;
+
                             case 3:
                                 Console.Clear();
                                 hotelViews.VerInformacoesQuartos(loadedQuartos);
                                 break;
 
-
-                            
-
-
-
-
-              
+                            case 4:
+                                Console.Clear();    
+                                hotelViews.ListarQuartosLivresOcupados(loadedQuartos);
+                                break;
 
                             default:
                                 Console.WriteLine("Opção inválida.");
@@ -97,30 +82,11 @@ namespace Hotelaria
                         }
                         break;
 
-                    //acaba com o loop, matando o programa
                     case 5:
                         terminarPrograma = false;
-                    break;
-                        
-                        // Add other cases for other options in MenuPrincipal if needed
+                        break;
                 }
-            } while (terminarPrograma == true);
-
-        }
-
-
-
-
-
-
-
-
-
-
-
-
-
+            } while (terminarPrograma);
         }
     }
-
-
+}

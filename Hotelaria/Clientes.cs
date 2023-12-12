@@ -1,4 +1,13 @@
-﻿using System;
+﻿/* 
+@file Clientes.cs
+@author Tomás Fernandes Ferreira (a20457@alunos.ipca.pt)
+@author Tiago Amadeu Silva Sousa (a20735@alunos.ipca.pt)
+@brief
+@date dezembro 2023
+@copyright Copyright (c) 2023
+*/
+
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -16,12 +25,16 @@ namespace Hotelaria
     [Serializable]
     public class Clientes
     {
+
+        #region Atributos
         private string nome;
         private int cc;
         private int telemovel;
         private string email;
+        #endregion
 
-        
+
+        #region Propriedades
         public string Nome
         {
             get { return nome; }
@@ -45,15 +58,17 @@ namespace Hotelaria
             get { return email; }
             set { email = value; }
         }
+        #endregion
 
+        #region Contrutor
         public Clientes()
         {
 
             email = "TESTE";
-         
+            CC = 123456789;
 
         }
-
+        #endregion
 
     }
 }
