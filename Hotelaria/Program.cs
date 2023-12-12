@@ -71,18 +71,17 @@ namespace Hotelaria
                                     Console.Clear();
                                     hotelViews.MudarPreco(loadedQuartos, hotelController);
 
+                                break;
+
+
+                            case 2:
+                              
                             break;
-
-
                             //Listar todos os quartos
                             case 3:
-                                    Console.Clear();
-                                    foreach (Quarto quarto in loadedQuartos)
-                                 {
-                                   Console.WriteLine($"Quarto teste {quarto.QuartoID}, {quarto.Estado}, {quarto.Cliente.Email}, {quarto.Preco}");
-                                 }
-
-                            break;
+                                Console.Clear();
+                                hotelViews.VerInformacoesQuartos(loadedQuartos);
+                                break;
 
 
                             

@@ -39,10 +39,10 @@ namespace Hotelaria
         public void MenuQuartos()
         {
             Console.WriteLine("Escolha uma opção");
-            Console.WriteLine("Mudar preço de um quarto");
-            Console.WriteLine("Ver informação de um quarto");
-            Console.WriteLine("Listar todos os quartos");
-            Console.WriteLine("Listar quartos livres");
+            Console.WriteLine("1. Mudar preço de um quarto");
+            Console.WriteLine("2. Ver informação de um quarto");
+            Console.WriteLine("3. Listar todos os quartos");
+            Console.WriteLine("4. Listar quartos livres");
             Console.WriteLine("");
 
         }
@@ -111,8 +111,26 @@ namespace Hotelaria
         }
 
      
+        //Mostrar informações de todos os quartos
+        public void VerInformacoesQuartos(List<Quarto> loadedQuartos)
+        {
 
-        
+            foreach (Quarto quarto in loadedQuartos)
+            {
+                Console.WriteLine($"Quarto {quarto.QuartoID}:");
+                Console.WriteLine($"Estado: {quarto.Estado}, Preço: {quarto.Preco}");
+                Console.WriteLine("");
+                if (quarto.Estado == "Disponivel") {
+                    Console.WriteLine($"Cliente: {quarto.Cliente.Nome} ");
+                    Console.WriteLine($"CC: {quarto.Cliente.CC}, Numero Telemovel: {quarto.Cliente.Telemovel}, Email: {quarto.Cliente.Email}");
+                }
+                Console.WriteLine("");
+                Console.WriteLine("");
+            }
+
+
+        }
+
 
     }
 }
