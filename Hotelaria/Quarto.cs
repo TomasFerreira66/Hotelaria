@@ -16,11 +16,12 @@ using System.Threading.Tasks;
 using System.Runtime.Serialization;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.IO;
+using Biblioteca;
 
 namespace Hotelaria
 {
     [Serializable]
-    public  class Quarto
+    public class Quarto
     {
 
         #region attributes
@@ -33,7 +34,7 @@ namespace Hotelaria
         private string estado;
         public DateTime DataCheckIn { get; set; }
         private int preco;
-        
+
         #endregion
 
         #region Constructor
@@ -69,7 +70,7 @@ namespace Hotelaria
 
         }
 
-        
+
         #endregion
 
     }

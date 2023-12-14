@@ -15,6 +15,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Runtime.Serialization;
 using System.Runtime.Serialization.Formatters.Binary;
+using Biblioteca;
 
 
 namespace Hotelaria
@@ -53,7 +54,7 @@ namespace Hotelaria
 
             string currentDirectory = Environment.CurrentDirectory;
 
-            string projectDirectory = Path.Combine(currentDirectory, "..//..");
+            string projectDirectory = Path.Combine(currentDirectory);
 
 
             string filePath = Path.Combine(projectDirectory, fileName);
@@ -75,7 +76,7 @@ namespace Hotelaria
         public string ReadTextFromFile(string fileName)
         {
             string currentDirectory = Environment.CurrentDirectory;
-            string projectDirectory = Path.Combine(currentDirectory, "..//..");
+            string projectDirectory = Path.Combine(currentDirectory);
             string filePath = Path.Combine(projectDirectory, fileName);
 
             if (File.Exists(filePath))
@@ -100,7 +101,7 @@ namespace Hotelaria
         {
 
             string currentDirectory = Environment.CurrentDirectory;
-            string projectDirectory = Path.Combine(currentDirectory, "..//..");
+            string projectDirectory = Path.Combine(currentDirectory);
             string filePath = Path.Combine(projectDirectory, fileName);
 
             using (FileStream fileStream = new FileStream(filePath, FileMode.Create))
@@ -120,7 +121,7 @@ namespace Hotelaria
         {
 
             string currentDirectory = Environment.CurrentDirectory;
-            string projectDirectory = Path.Combine(currentDirectory, "..//..");
+            string projectDirectory = Path.Combine(currentDirectory);
             string filePath = Path.Combine(projectDirectory, fileName);
 
             using (FileStream fileStream = new FileStream(filePath, FileMode.Open))

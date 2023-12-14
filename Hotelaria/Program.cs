@@ -12,6 +12,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Biblioteca;
 
 namespace Hotelaria
 {
@@ -28,8 +29,11 @@ namespace Hotelaria
             string nomeDoHotel = hotelController.ReadTextFromFile(fileNameNomeHotel);
             #endregion
 
-            #region setup
+            #region Startup
 
+
+            //O startup verifica na pasta do projeto se já existe ficheiros
+            //do nome e numero de quartos do hotel, senão faz referencia
             if (string.IsNullOrEmpty(nomeDoHotel))
             {
                 hotelViews.Setup(hotelController, fileNameNomeHotel, fileNameNumeroQuartos);
@@ -86,6 +90,10 @@ namespace Hotelaria
 
                     case 2:
                         hotelViews.RealizarReserva(loadedQuartos, hotelController);
+                    break;
+
+                    case 3:
+
                     break;
 
                     case 5:

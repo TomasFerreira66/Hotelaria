@@ -12,6 +12,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Biblioteca;
+
 
 namespace Hotelaria
 {
@@ -19,7 +21,7 @@ namespace Hotelaria
     public class HotelViews
     {
 
-
+        
         #region Menus
         //Menu principal e respetivos metodos
 
@@ -52,7 +54,7 @@ namespace Hotelaria
             Console.WriteLine("1. Mudar preço de um quarto");
             Console.WriteLine("2. Ver informação de um quarto");
             Console.WriteLine("3. Listar todos os quartos");
-            Console.WriteLine("4. Listar quartos livres");
+            Console.WriteLine("4. Listar quartos disponiveis/ocupados/Reservados");
             Console.WriteLine("");
 
         }
@@ -104,7 +106,7 @@ namespace Hotelaria
         {
 
             // Mudar preço de um quarto
-            Console.WriteLine("Digite o número do quarto que deseja modificar o preço:");
+            Console.WriteLine("Insira o número do quarto que deseja modificar o preço:");
             int numeroQuarto = Convert.ToInt32(Console.ReadLine());
 
             // Find the room with the specified number in the loadedQuartos list
@@ -113,7 +115,7 @@ namespace Hotelaria
             if (quartoParaModificar != null)
             {
                 Console.WriteLine($"O preço atual do quarto {quartoParaModificar.QuartoID} é {quartoParaModificar.Preco}");
-                Console.WriteLine("Digite o novo preço:");
+                Console.WriteLine("Insira o novo preço:");
                 int novoPreco = Convert.ToInt32(Console.ReadLine());
 
                 // Update the room's price in the loadedQuartos list
@@ -195,9 +197,10 @@ namespace Hotelaria
             Console.WriteLine("Deseja ver:");
             Console.WriteLine("1 - Disponíveis");
             Console.WriteLine("2 - Ocupados");
+            Console.WriteLine("3 - Reservados");
 
             int escolha = Convert.ToInt32(Console.ReadLine());
-
+            
             switch (escolha)
             {
                 case 1:
@@ -222,6 +225,20 @@ namespace Hotelaria
                           
                         }
                     }
+                    break;
+
+                    case 3:
+
+                    Console.WriteLine("Quartos Reservados:");
+                    foreach (Quarto quarto in loadedQuartos)
+                    {
+                        if (quarto.Estado == "Reservado")
+                        {
+                            Console.WriteLine($"Número do Quarto: {quarto.QuartoID}, Estado: {quarto.Estado}");
+
+                        }
+                    }
+
                     break;
 
                 default:
@@ -252,9 +269,10 @@ namespace Hotelaria
                 if (quarto.Estado == "Disponivel")
                 {
                     Console.WriteLine($"Número do Quarto: {quarto.QuartoID}, Estado: {quarto.Estado}");
-                    
+
                 }
             }
+
 
             Console.WriteLine("Digite o número do quarto que deseja efetuar a reserva:");
             int numeroQuarto = Convert.ToInt32(Console.ReadLine());
@@ -284,8 +302,19 @@ namespace Hotelaria
 
             hotelController.SerializeObject(loadedQuartos, "quartosData.dat");
 
-
         }
+
+       
+
+        #endregion
+
+        #region CheckIN
+
+        public void CheckIN(List<Quarto> loadedQuartos)
+        {
+            Console.WriteLine("");
+        }
+
 
         #endregion
 
