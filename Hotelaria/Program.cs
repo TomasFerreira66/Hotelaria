@@ -28,7 +28,7 @@ namespace Hotelaria
             string nomeDoHotel = hotelController.ReadTextFromFile(fileNameNomeHotel);
             #endregion
 
-            
+            #region setup
 
             if (string.IsNullOrEmpty(nomeDoHotel))
             {
@@ -39,6 +39,8 @@ namespace Hotelaria
             {
                 Console.WriteLine($"Menu Hotel {nomeDoHotel}");
             }
+
+            #endregion
 
             bool terminarPrograma = true;
 
@@ -81,6 +83,10 @@ namespace Hotelaria
                                 break;
                         }
                         break;
+
+                    case 2:
+                        hotelViews.RealizarReserva(loadedQuartos, hotelController);
+                    break;
 
                     case 5:
                         terminarPrograma = false;

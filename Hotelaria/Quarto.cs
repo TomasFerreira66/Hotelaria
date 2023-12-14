@@ -28,10 +28,12 @@ namespace Hotelaria
 
         //Variavel para guardar a informação de cada cliente de cada quarto
         public Clientes Cliente { get; set; }
+        public Reservas Reserva { get; set; }
         //Variavel Estado (se está Ocupado ou não)
         private string estado;
         public DateTime DataCheckIn { get; set; }
         private int preco;
+        
         #endregion
 
         #region Constructor
@@ -41,6 +43,7 @@ namespace Hotelaria
             estado = "Disponivel";
             preco = 50;
             Cliente = new Clientes();
+            Reserva = new Reservas();
         }
 
         #endregion
@@ -65,6 +68,8 @@ namespace Hotelaria
             set { preco = value; }
 
         }
+
+        
         #endregion
 
     }

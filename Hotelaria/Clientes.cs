@@ -63,8 +63,9 @@ namespace Hotelaria
         #region Contrutor
         public Clientes()
         {
-
-            email = "TESTE";
+            Nome = "N/A";
+            email = "N/A";
+            telemovel = 0;
             CC = 123456789;
 
         }

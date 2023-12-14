@@ -66,7 +66,7 @@ namespace Hotelaria
 
         #endregion
 
-        #region Metodos
+        #region Metodos menu informação quartos
         /// <summary>
         /// Método para realizar o setup do programa.
         /// </summary>
@@ -143,12 +143,15 @@ namespace Hotelaria
                 Console.WriteLine($"Quarto {quarto.QuartoID}:");
                 Console.WriteLine($"Estado: {quarto.Estado}, Preço: {quarto.Preco}");
                 Console.WriteLine("");
-                if (quarto.Estado == "Disponivel") {
+
+                if (quarto.Estado == "Ocupado" || quarto.Estado == "Reservado") {
                     Console.WriteLine($"Cliente: {quarto.Cliente.Nome} ");
                     Console.WriteLine($"CC: {quarto.Cliente.CC}, Numero Telemovel: {quarto.Cliente.Telemovel}, Email: {quarto.Cliente.Email}");
+                    Console.WriteLine($"Numero de dias da estadia: {quarto.Reserva.DuracaoEstadia}, Preço total: {quarto.Reserva.PrecoTotal}");
+                    Console.WriteLine("");
+                    Console.WriteLine("");
                 }
-                Console.WriteLine("");
-                Console.WriteLine("");
+                Console.WriteLine("=============================================================================");
             }
 
 
@@ -161,7 +164,7 @@ namespace Hotelaria
         /// <param name="loadedQuartos"></param>
         public void VerInformacaoUmQuarto(List<Quarto> loadedQuartos)
         {
-           
+
             Console.WriteLine("Lista quartos");
 
             foreach (Quarto quarto in loadedQuartos)
@@ -177,10 +180,12 @@ namespace Hotelaria
             Console.WriteLine($"Quarto {mostrarQuarto.QuartoID}:");
             Console.WriteLine($"Estado: {mostrarQuarto.Estado}, Preço: {mostrarQuarto.Preco}");
             Console.WriteLine("");
-            if (mostrarQuarto.Estado == "Disponivel")
-            {
+
+            if (mostrarQuarto.Estado == "Ocupado" || mostrarQuarto.Estado == "Reservado") { 
+
                 Console.WriteLine($"Cliente: {mostrarQuarto.Cliente.Nome} ");
                 Console.WriteLine($"CC: {mostrarQuarto.Cliente.CC}, Numero Telemovel: {mostrarQuarto.Cliente.Telemovel}, Email: {mostrarQuarto.Cliente.Email}");
+                Console.WriteLine($"Numero de dias da estadia: {mostrarQuarto.Reserva.DuracaoEstadia}, Preço total: {mostrarQuarto.Reserva.PrecoTotal}");
             }
         }
 
@@ -228,7 +233,62 @@ namespace Hotelaria
 
 
 
+
         #endregion
+
+        #region Reserva
+
+
+        /// <summary>
+        /// Metodo para realizar reservas
+        /// </summary>
+        /// <param name="loadedQuartos"></param>
+        public void RealizarReserva(List<Quarto> loadedQuartos, HotelController hotelController)
+        {
+
+            Console.WriteLine("Quartos disponiveis para reservar");
+            foreach (Quarto quarto in loadedQuartos)
+            {
+                if (quarto.Estado == "Disponivel")
+                {
+                    Console.WriteLine($"Número do Quarto: {quarto.QuartoID}, Estado: {quarto.Estado}");
+                    
+                }
+            }
+
+            Console.WriteLine("Digite o número do quarto que deseja efetuar a reserva:");
+            int numeroQuarto = Convert.ToInt32(Console.ReadLine());
+
+            Quarto quartoParaReservar = loadedQuartos.FirstOrDefault(q => q.QuartoID == numeroQuarto);
+
+
+            Console.WriteLine("Nome do cliente:");
+            string nomeCliente = Console.ReadLine();
+            Console.WriteLine("Email do Cliente");
+            string emailCliente = Console.ReadLine();
+            Console.WriteLine("CC do cliente");
+            int CCcliente = Convert.ToInt32(Console.ReadLine());
+            Console.WriteLine("Numero de telemovel");
+            int telemovelCliente = Convert.ToInt32(Console.ReadLine());
+            Console.WriteLine("Numero de dias estadia");
+            int numeroDiasEstadia = Convert.ToInt32(Console.ReadLine());
+
+
+            quartoParaReservar.Cliente.Nome = nomeCliente;
+            quartoParaReservar.Cliente.Email = emailCliente;
+            quartoParaReservar.Cliente.CC = CCcliente;
+            quartoParaReservar.Cliente.Telemovel = telemovelCliente;
+            quartoParaReservar.Estado = "Reservado";
+            quartoParaReservar.Reserva.DuracaoEstadia = numeroDiasEstadia;
+            quartoParaReservar.Reserva.PrecoTotal = quartoParaReservar.Preco * numeroDiasEstadia;
+
+            hotelController.SerializeObject(loadedQuartos, "quartosData.dat");
+
+
+        }
+
+        #endregion
+
     }
 }
 
