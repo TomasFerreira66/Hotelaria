@@ -9,6 +9,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.Design;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -114,17 +115,25 @@ namespace Hotelaria
 
             if (quartoParaModificar != null)
             {
-                Console.WriteLine($"O preço atual do quarto {quartoParaModificar.QuartoID} é {quartoParaModificar.Preco}");
-                Console.WriteLine("Insira o novo preço:");
-                int novoPreco = Convert.ToInt32(Console.ReadLine());
+                //Verifica primeiro se o quarto está ocupado ou reservado
+                if (quartoParaModificar.Estado == "Ocupado" || quartoParaModificar.Estado == "Reservado")
+                {
+                    Console.WriteLine("Este quarto encontra-se Reservado ou Ocupado, por favor aguarde que esteja disponivel para modificar o preço");
+                }
+                else
+                {
+                    Console.WriteLine($"O preço atual do quarto {quartoParaModificar.QuartoID} é {quartoParaModificar.Preco}");
+                    Console.WriteLine("Insira o novo preço:");
+                    int novoPreco = Convert.ToInt32(Console.ReadLine());
 
-                // Update the room's price in the loadedQuartos list
-                quartoParaModificar.Preco = novoPreco;
+                    // Update the room's price in the loadedQuartos list
+                    quartoParaModificar.Preco = novoPreco;
 
-                // Save the updated list to the file
-                hotelController.SerializeObject(loadedQuartos, "quartosData.dat");
+                    // Save the updated list to the file
+                    hotelController.SerializeObject(loadedQuartos, "quartosData.dat");
 
-                Console.WriteLine($"Preço do quarto {quartoParaModificar.QuartoID} modificado para {quartoParaModificar.Preco}");
+                    Console.WriteLine($"Preço do quarto {quartoParaModificar.QuartoID} modificado para {quartoParaModificar.Preco}");
+                }
             }
             else
             {
@@ -150,6 +159,7 @@ namespace Hotelaria
                     Console.WriteLine($"Cliente: {quarto.Cliente.Nome} ");
                     Console.WriteLine($"CC: {quarto.Cliente.CC}, Numero Telemovel: {quarto.Cliente.Telemovel}, Email: {quarto.Cliente.Email}");
                     Console.WriteLine($"Numero de dias da estadia: {quarto.Reserva.DuracaoEstadia}, Preço total: {quarto.Reserva.PrecoTotal}");
+                    Console.WriteLine($"Data Check-in: {quarto.DataCheckIn}");
                     Console.WriteLine("");
                     Console.WriteLine("");
                 }
@@ -188,6 +198,7 @@ namespace Hotelaria
                 Console.WriteLine($"Cliente: {mostrarQuarto.Cliente.Nome} ");
                 Console.WriteLine($"CC: {mostrarQuarto.Cliente.CC}, Numero Telemovel: {mostrarQuarto.Cliente.Telemovel}, Email: {mostrarQuarto.Cliente.Email}");
                 Console.WriteLine($"Numero de dias da estadia: {mostrarQuarto.Reserva.DuracaoEstadia}, Preço total: {mostrarQuarto.Reserva.PrecoTotal}");
+                Console.WriteLine($"Data CHECK-IN: {mostrarQuarto.DataCheckIn}");
             }
         }
 
@@ -210,7 +221,7 @@ namespace Hotelaria
                         if (quarto.Estado == "Disponivel")
                         {
                             Console.WriteLine($"Número do Quarto: {quarto.QuartoID}, Estado: {quarto.Estado}");
-                            // Add other relevant information about the room if needed
+                         
                         }
                     }
                     break;
@@ -310,9 +321,41 @@ namespace Hotelaria
 
         #region CheckIN
 
-        public void CheckIN(List<Quarto> loadedQuartos)
+        /// <summary>
+        /// Método para realizar o CHECK-IN de um cliente num quarto.
+        /// </summary>
+        /// <param name="loadedQuartos"></param>
+        /// <param name="hotelController"></param>
+        public void CheckIN(List<Quarto> loadedQuartos, HotelController hotelController)
         {
-            Console.WriteLine("");
+            Console.WriteLine("Reservas:");
+            foreach (Quarto quarto in loadedQuartos)
+            {
+                if (quarto.Estado == "Reservado")
+                {
+                    Console.WriteLine($"Número do Quarto: {quarto.QuartoID}");
+
+                }
+            }
+
+           Console.WriteLine("Escolha um quarto para realizar Check-In");
+            int quartoEscolhido = Convert.ToInt32(Console.ReadLine());
+
+
+            Quarto quartoParaCheckIN = loadedQuartos.FirstOrDefault(q => q.QuartoID == quartoEscolhido);
+
+            Console.WriteLine("Informações desta reserva a verificar:");
+            Console.WriteLine($"Nome do cliente: {quartoParaCheckIN.Cliente.Nome}, CC: {quartoParaCheckIN.Cliente.CC}");
+            Console.WriteLine($"Dias de estadia: {quartoParaCheckIN.Reserva.DuracaoEstadia}, Preço: {quartoParaCheckIN.Reserva.PrecoTotal}");
+
+            Console.WriteLine("Realizar CHECK-IN?");
+            string escolha = Console.ReadLine();
+            if (escolha == "s" )
+            {
+                quartoParaCheckIN.DataCheckIn = DateTime.Now;
+            }
+
+            hotelController.SerializeObject(loadedQuartos, "quartosData.dat");
         }
 
 
