@@ -94,7 +94,11 @@ namespace Hotelaria
 
                     case 3:
                         hotelViews.CheckIN(loadedQuartos, hotelController);
-                        break;
+                    break;
+
+                    case 4:
+                        hotelViews.CheckOUT(loadedQuartos, hotelController);
+                    break;
 
                     case 5:
                         terminarPrograma = false;

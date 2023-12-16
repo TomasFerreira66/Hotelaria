@@ -11,6 +11,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel.Design;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using Biblioteca;
@@ -45,8 +46,6 @@ namespace Hotelaria
             return Convert.ToInt32(Console.ReadLine());
         }
 
-          
-
 
         //Menu quartos e os respetivos metodos
         public void MenuQuartos()
@@ -62,14 +61,21 @@ namespace Hotelaria
 
         public int MenuQuartosEscolha()
         {
-            Console.Write("Escolha:");
-            return Convert.ToInt32(Console.ReadLine());
-
+            try
+            {
+                Console.Write("Escolha:");
+                return Convert.ToInt32(Console.ReadLine());
+            }
+            catch (FormatException)
+            {
+                Console.WriteLine("Erro: Por favor, insira um número válido.");
+                return MenuQuartosEscolha(); // Recursively call the method to get a valid input
+            }
         }
 
         #endregion
 
-        #region Metodos menu informação quartos
+        #region Setup
         /// <summary>
         /// Método para realizar o setup do programa.
         /// </summary>
@@ -79,25 +85,52 @@ namespace Hotelaria
         public void Setup(HotelController hotelController, string fileNameNomeHotel, string fileNameNumeroQuartos)
         {
             Console.WriteLine("Bem vindo ao setup do seu hotel!");
+
             Console.WriteLine("Para começar, digite o nome do seu hotel");
             string nomeDoHotel = Console.ReadLine();
 
-            // Save the nomeDoHotel to the file
-            hotelController.WriteTextToFile(fileNameNomeHotel, nomeDoHotel);
+            //Loop para continuar o setup até o utilizador meter dados validos
+            bool inputValid = false;
 
-            Console.WriteLine("Quantos quartos tem o seu hotel?");
-            string numeroQuartos = Console.ReadLine();
-            hotelController.WriteTextToFile(fileNameNumeroQuartos, numeroQuartos);
-            //da valores default à lista para depois guardar num ficheiro .dat
-            int numeroTotal = int.Parse(numeroQuartos);
-            for (int i = 0; i < numeroTotal; i++)
+            while (!inputValid)
             {
-                hotelController.AdicionarQuarto(i);
+                Console.WriteLine("Quantos quartos tem o seu hotel?");
+                
+                try
+                {
+                    string numeroQuartos = Console.ReadLine();
+                    //verifica se numeroQuarto é um numero, senão dá erro
+                    if (!int.TryParse(numeroQuartos, out int numeroTotal))
+                    {
+                        throw new ArgumentException("O número de quartos deve ser um número inteiro válido.");
+                    }
+
+
+                    //se der certo, guarda os valores do nome do hotel e o numero de quartos num txt.
+                    hotelController.WriteTextToFile(fileNameNumeroQuartos, numeroQuartos);
+                    hotelController.WriteTextToFile(fileNameNomeHotel, nomeDoHotel);
+                    // da valores default à lista para depois guardar num ficheiro .dat
+                    for (int i = 0; i < numeroTotal; i++)
+                    {
+                        hotelController.AdicionarQuarto(i);
+                    }
+
+                    //acaba o loop
+                    inputValid = true; // Break out of the loop if the input is valid
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine($"Erro: {ex.Message}");
+                    
+                }
             }
         }
 
 
 
+        #endregion
+
+        #region MudarPreco
         /// <summary>
         /// Método para mudar os preços de cada quarto.
         /// </summary>
@@ -141,7 +174,9 @@ namespace Hotelaria
             }
         }
 
-     
+        #endregion
+
+        #region InfoTodosQuartos
         /// <summary>
         /// Metodo para ver as informações de todos os quartos.
         /// </summary>
@@ -169,7 +204,9 @@ namespace Hotelaria
 
         }
 
+        #endregion
 
+        #region InfoUmQuarto
         /// <summary>
         /// Método para ver informações de um quarto.
         /// </summary>
@@ -201,8 +238,13 @@ namespace Hotelaria
                 Console.WriteLine($"Data CHECK-IN: {mostrarQuarto.DataCheckIn}");
             }
         }
+        #endregion
 
-
+        #region Listar quartos Disponivels/Reservados/Ocupados
+        /// <summary>
+        /// Este metodo permite ver informações dos quartos dependendo do estado que escolher
+        /// </summary>
+        /// <param name="loadedQuartos"></param>
         public void ListarQuartosLivresOcupados(List<Quarto> loadedQuartos)
         {
             Console.WriteLine("Deseja ver:");
@@ -257,11 +299,6 @@ namespace Hotelaria
                     break;
             }
         }
-
-
-
-
-
         #endregion
 
         #region Reserva
@@ -353,6 +390,7 @@ namespace Hotelaria
             if (escolha == "s" )
             {
                 quartoParaCheckIN.DataCheckIn = DateTime.Now;
+                quartoParaCheckIN.Estado = "Ocupado";
             }
 
             hotelController.SerializeObject(loadedQuartos, "quartosData.dat");
@@ -361,6 +399,46 @@ namespace Hotelaria
 
         #endregion
 
+        #region CheckOUT
+
+        /// <summary>
+        /// Metodo para realizar o CHECKOUT de um cliente
+        /// </summary>
+        /// <param name="loadedQuartos"></param>
+        /// <param name="hotelController"></param>
+        public void CheckOUT(List<Quarto> loadedQuartos, HotelController hotelController)/*-*/
+
+
+        {
+
+            Console.WriteLine("Quartos:");
+            foreach (Quarto quarto in loadedQuartos)
+            {
+                if (quarto.Estado == "Ocupado")
+                {
+                    Console.WriteLine($"Número do Quarto: {quarto.QuartoID}");
+
+                }
+            }
+
+
+            Console.WriteLine("Escolha um quarto para realizar Check-OUT");
+            int quartoEscolhido = Convert.ToInt32(Console.ReadLine());
+
+            Quarto QuartoTemp = loadedQuartos.FirstOrDefault(q => q.QuartoID == quartoEscolhido);
+            int PrecoOriginal = QuartoTemp.Preco;
+            int IDOriginal = QuartoTemp.QuartoID;
+
+            int quartoParaCheckOUT = loadedQuartos.FindIndex(q => q.QuartoID == quartoEscolhido);
+            loadedQuartos[quartoParaCheckOUT] = new Quarto();
+            loadedQuartos[quartoParaCheckOUT].Preco = PrecoOriginal;
+            loadedQuartos[quartoParaCheckOUT].QuartoID = IDOriginal;
+
+            hotelController.SerializeObject(loadedQuartos, "quartosData.dat");
+
+        }
+
+        #endregion
     }
 }
 
