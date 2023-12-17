@@ -14,66 +14,16 @@ using System.Linq;
 using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
-using Biblioteca;
+using DataTier;
 
 
-namespace Hotelaria
+namespace Application_Layer
 {
     //Class UI e mostrar dados
-    public class HotelViews
+    public class Metodos
     {
 
         
-        #region Menus
-        //Menu principal e respetivos metodos
-
-        public void MenuPrincipal()
-        {
-            Console.WriteLine("");
-            Console.WriteLine("");
-            Console.WriteLine("");
-            Console.WriteLine("");
-            Console.WriteLine("Escolha uma opção");
-            Console.WriteLine("1 - Ver informação quartos");
-            Console.WriteLine("2 - Realizar reserva");
-            Console.WriteLine("3 - Realizar Check-IN");
-            Console.WriteLine("4 - Realizar Check-Out");
-            Console.WriteLine("5 - Sair");
-        }
-
-        public int MenuPrincipalEscolha()
-        {
-            return Convert.ToInt32(Console.ReadLine());
-        }
-
-
-        //Menu quartos e os respetivos metodos
-        public void MenuQuartos()
-        {
-            Console.WriteLine("Escolha uma opção");
-            Console.WriteLine("1. Mudar preço de um quarto");
-            Console.WriteLine("2. Ver informação de um quarto");
-            Console.WriteLine("3. Listar todos os quartos");
-            Console.WriteLine("4. Listar quartos disponiveis/ocupados/Reservados");
-            Console.WriteLine("");
-
-        }
-
-        public int MenuQuartosEscolha()
-        {
-            try
-            {
-                Console.Write("Escolha:");
-                return Convert.ToInt32(Console.ReadLine());
-            }
-            catch (FormatException)
-            {
-                Console.WriteLine("Erro: Por favor, insira um número válido.");
-                return MenuQuartosEscolha(); // Recursively call the method to get a valid input
-            }
-        }
-
-        #endregion
 
         #region Setup
         /// <summary>
@@ -82,7 +32,7 @@ namespace Hotelaria
         /// <param name="hotelController"></param>
         /// <param name="fileNameNomeHotel"></param>
         /// <param name="fileNameNumeroQuartos"></param>
-        public void Setup(HotelController hotelController, string fileNameNomeHotel, string fileNameNumeroQuartos)
+        public void Setup(Dados_Metodos hotelController, string fileNameNomeHotel, string fileNameNumeroQuartos)
         {
             Console.WriteLine("Bem vindo ao setup do seu hotel!");
 
@@ -136,7 +86,7 @@ namespace Hotelaria
         /// </summary>
         /// <param name="loadedQuartos"></param>
         /// <param name="hotelController"></param>
-        public void MudarPreco(List<Quarto> loadedQuartos, HotelController hotelController)
+        public void MudarPreco(List<Quarto> loadedQuartos, Dados_Metodos hotelController)
         {
 
             // Mudar preço de um quarto
@@ -308,7 +258,7 @@ namespace Hotelaria
         /// Metodo para realizar reservas
         /// </summary>
         /// <param name="loadedQuartos"></param>
-        public void RealizarReserva(List<Quarto> loadedQuartos, HotelController hotelController)
+        public void RealizarReserva(List<Quarto> loadedQuartos, Dados_Metodos hotelController)
         {
 
             Console.WriteLine("Quartos disponiveis para reservar");
@@ -322,8 +272,35 @@ namespace Hotelaria
             }
 
 
-            Console.WriteLine("Digite o número do quarto que deseja efetuar a reserva:");
-            int numeroQuarto = Convert.ToInt32(Console.ReadLine());
+
+            int numeroQuarto;
+
+            while (true)
+            {
+                try
+                {
+                    Console.WriteLine("Digite o número do quarto que deseja efetuar a reserva:");
+                    numeroQuarto = Convert.ToInt32(Console.ReadLine());
+
+                    // Ve se o numero do quarto está disponivel
+                    if (loadedQuartos.Any(q => q.QuartoID == numeroQuarto && q.Estado == "Disponivel"))
+                    {
+                        break; //Loop acaba se um numero de quarto valido é inputed
+                    }
+                    else
+                    {
+                        Console.WriteLine("Quarto não disponível. Por favor, escolha um quarto disponível.");
+                    }
+                }
+                catch (FormatException)
+                {
+                    Console.WriteLine("Por favor, insira um número válido.");
+                }
+                catch (OverflowException)
+                {
+                    Console.WriteLine("O número inserido é muito grande. Por favor, insira um número menor.");
+                }
+            }
 
             Quarto quartoParaReservar = loadedQuartos.FirstOrDefault(q => q.QuartoID == numeroQuarto);
 
@@ -363,7 +340,7 @@ namespace Hotelaria
         /// </summary>
         /// <param name="loadedQuartos"></param>
         /// <param name="hotelController"></param>
-        public void CheckIN(List<Quarto> loadedQuartos, HotelController hotelController)
+        public void CheckIN(List<Quarto> loadedQuartos, Dados_Metodos hotelController)
         {
             Console.WriteLine("Reservas:");
             foreach (Quarto quarto in loadedQuartos)
@@ -406,7 +383,7 @@ namespace Hotelaria
         /// </summary>
         /// <param name="loadedQuartos"></param>
         /// <param name="hotelController"></param>
-        public void CheckOUT(List<Quarto> loadedQuartos, HotelController hotelController)/*-*/
+        public void CheckOUT(List<Quarto> loadedQuartos, Dados_Metodos hotelController)/*-*/
 
 
         {

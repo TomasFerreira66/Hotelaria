@@ -16,9 +16,8 @@ using System.Threading.Tasks;
 using System.Runtime.Serialization;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.IO;
-using Biblioteca;
 
-namespace Hotelaria
+namespace DataTier
 {
     [Serializable]
     public class Quarto

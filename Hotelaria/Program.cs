@@ -12,7 +12,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Biblioteca;
+using DataTier;
+using Presentation_Tier;
+using Application_Layer;
 
 namespace Hotelaria
 {
@@ -21,23 +23,26 @@ namespace Hotelaria
         static void Main(string[] args)
         {
             #region Atributos
-            HotelController hotelController = new HotelController();
-            HotelViews hotelViews = new HotelViews();
+            Dados_Metodos dadosMetodos = new Dados_Metodos();
+            Metodos metodos = new Metodos();
+            Main main = new Main();
             List<Quarto> loadedQuartos;
+
+
             string fileNameNomeHotel = "nomeHotel.txt";
             string fileNameNumeroQuartos = "numeroQuartos.txt";
-            string nomeDoHotel = hotelController.ReadTextFromFile(fileNameNomeHotel);
+            string nomeDoHotel = dadosMetodos.ReadTextFromFile(fileNameNomeHotel);
             #endregion
 
-            #region Startup
+            #region Ve
 
 
             //O startup verifica na pasta do projeto se já existe ficheiros
             //do nome e numero de quartos do hotel, senão faz referencia
             if (string.IsNullOrEmpty(nomeDoHotel))
             {
-                hotelViews.Setup(hotelController, fileNameNomeHotel, fileNameNumeroQuartos);
-                hotelController.SerializeObject(hotelController.QuartosList, "quartosData.dat");
+                metodos.Setup(dadosMetodos, fileNameNomeHotel, fileNameNumeroQuartos);
+                dadosMetodos.SerializeObject(dadosMetodos.QuartosList, "quartosData.dat");
             }
             else
             {
@@ -50,61 +55,13 @@ namespace Hotelaria
 
             do
             {
-                loadedQuartos = hotelController.DeserializeObject<List<Quarto>>("quartosData.dat");
-                hotelViews.MenuPrincipal();
-                int escolha = hotelViews.MenuPrincipalEscolha();
-
-                switch (escolha)
-                {
-                    case 1:
-                        hotelViews.MenuQuartos();
-                        int escolhaQuartos = hotelViews.MenuQuartosEscolha();
-
-                        switch (escolhaQuartos)
-                        {
-                            case 1:
-                                Console.Clear();
-                                hotelViews.MudarPreco(loadedQuartos, hotelController);
-                                break;
-
-                            case 2:
-                                Console.Clear();
-                                hotelViews.VerInformacaoUmQuarto(loadedQuartos);
-                                break;
-
-                            case 3:
-                                Console.Clear();
-                                hotelViews.VerInformacoesQuartos(loadedQuartos);
-                                break;
-
-                            case 4:
-                                Console.Clear();    
-                                hotelViews.ListarQuartosLivresOcupados(loadedQuartos);
-                                break;
-
-                            default:
-                                Console.WriteLine("Opção inválida.");
-                                break;
-                        }
-                        break;
-
-                    case 2:
-                        hotelViews.RealizarReserva(loadedQuartos, hotelController);
-                    break;
-
-                    case 3:
-                        hotelViews.CheckIN(loadedQuartos, hotelController);
-                    break;
-
-                    case 4:
-                        hotelViews.CheckOUT(loadedQuartos, hotelController);
-                    break;
-
-                    case 5:
-                        terminarPrograma = false;
-                        break;
-                }
+                //Sempre que se volta ao menu principal depois uma açáo, o programa da load aos dados guardados no quartosData.dat
+                loadedQuartos = dadosMetodos.DeserializeObject<List<Quarto>>("quartosData.dat");
+                //Chama os menus
+                main.Startup(loadedQuartos);
+                terminarPrograma = true;
             } while (terminarPrograma);
+
         }
     }
 }

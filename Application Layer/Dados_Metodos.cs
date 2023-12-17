@@ -15,15 +15,15 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Runtime.Serialization;
 using System.Runtime.Serialization.Formatters.Binary;
-using Biblioteca;
+using DataTier;
 
 
-namespace Hotelaria
+namespace Application_Layer
 {
 
     
     //Classe hotelController servira para manipular dados
-    public class HotelController
+    public class Dados_Metodos
     {
 
         #region Atributos
@@ -35,7 +35,7 @@ namespace Hotelaria
 
 
         #region Constructor
-        public HotelController()
+        public Dados_Metodos()
         {
             QuartosList = new List<Quarto>();
 

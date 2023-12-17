@@ -1,8 +1,8 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <OutputType>Exe</OutputType>
     <TargetFramework>net6.0</TargetFramework>
+    <RootNamespace>Presentation_Tier</RootNamespace>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
   </PropertyGroup>
@@ -13,9 +13,6 @@
     </Reference>
     <Reference Include="DataTier">
       <HintPath>..\Biblioteca\bin\Debug\net6.0\DataTier.dll</HintPath>
-    </Reference>
-    <Reference Include="Presentation Tier">
-      <HintPath>..\Presentation Tier\bin\Debug\net6.0\Presentation Tier.dll</HintPath>
     </Reference>
   </ItemGroup>
 

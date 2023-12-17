@@ -17,7 +17,7 @@ using System.Runtime.Serialization.Formatters.Binary;
 
 
 
-namespace Biblioteca
+namespace DataTier
 {
 
     //Classe Clientes, está classe é do registo de clientes onde podemos obter dados pessoais do Cliente
