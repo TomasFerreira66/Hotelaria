@@ -22,6 +22,7 @@ namespace Presentation_Tier
     {
         MenuPrincipal menuPrincipal = new MenuPrincipal();
         InfoQuartos infoQuartos = new InfoQuartos();
+        Reservas reservas = new Reservas();
         Dados_Metodos dados_Metodos = new Dados_Metodos();
         Metodos metodos = new Metodos();
         public Main()
@@ -71,13 +72,38 @@ namespace Presentation_Tier
                             Console.WriteLine("Opção inválida.");
                             break;
                     }
-                    break;
+                break;
                     //fecha o menu "1 - Ver informação quartos"
 
 
                 case 2:
-                    metodos.RealizarReserva(loadedQuartos, dados_Metodos);
+                    Console.Clear();
+                    reservas.MenuReservas();
+                    int escolhaReservas = reservas.MenuReservasEscolha();
+                    switch(escolhaReservas)
+                    { 
+                        case 1:
+                            metodos.RealizarReserva(loadedQuartos, dados_Metodos);
+                        break;
+
+                        case 2:
+
+                        break;
+
+                        case 3:
+                            Console.Clear();
+                        break;
+
+                           
+                        default:
+                            Console.WriteLine("Opção inválida.");
+                            break;
+
+
+
+                    }
                     break;
+                   
 
                 case 3:
                     metodos.CheckIN(loadedQuartos, dados_Metodos);

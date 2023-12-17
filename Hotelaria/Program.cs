@@ -34,7 +34,7 @@ namespace Hotelaria
             string nomeDoHotel = dadosMetodos.ReadTextFromFile(fileNameNomeHotel);
             #endregion
 
-            #region Ve
+            #region VerificaSetup
 
 
             //O startup verifica na pasta do projeto se já existe ficheiros
