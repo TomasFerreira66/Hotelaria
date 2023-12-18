@@ -1,5 +1,5 @@
 ﻿/* 
-@file HotelController.cs
+@file Dados_Metodos.cs
 @author Tomás Fernandes Ferreira (a20457@alunos.ipca.pt)
 @author Tiago Amadeu Silva Sousa (a20735@alunos.ipca.pt)
 @brief
@@ -18,7 +18,7 @@ using System.Runtime.Serialization.Formatters.Binary;
 using DataTier;
 
 
-namespace Application_Layer
+namespace Application_Tier
 {
 
     

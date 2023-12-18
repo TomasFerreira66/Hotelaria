@@ -1,4 +1,13 @@
-﻿using System;
+﻿/* 
+@file Reservas.cs
+@author Tomás Fernandes Ferreira (a20457@alunos.ipca.pt)
+@author Tiago Amadeu Silva Sousa (a20735@alunos.ipca.pt)
+@brief
+@date dezembro 2023
+@copyright Copyright (c) 2023
+*/
+
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;

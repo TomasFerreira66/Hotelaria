@@ -2,8 +2,15 @@
 
   <PropertyGroup>
     <TargetFramework>net6.0</TargetFramework>
+    <RootNamespace>Application_Tier</RootNamespace>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
   </PropertyGroup>
+
+  <ItemGroup>
+    <Reference Include="DataTier">
+      <HintPath>..\Biblioteca\bin\Debug\net6.0\DataTier.dll</HintPath>
+    </Reference>
+  </ItemGroup>
 
 </Project>

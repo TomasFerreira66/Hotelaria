@@ -1,6 +1,5 @@
-﻿
-/* 
-@file HotelController.cs
+﻿/* 
+@file MenuPrincipal.cs
 @author Tomás Fernandes Ferreira (a20457@alunos.ipca.pt)
 @author Tiago Amadeu Silva Sousa (a20735@alunos.ipca.pt)
 @brief
@@ -29,7 +28,8 @@ namespace Presentation_Tier
             Console.WriteLine("2 - Realizar reserva");
             Console.WriteLine("3 - Realizar Check-IN");
             Console.WriteLine("4 - Realizar Check-Out");
-            Console.WriteLine("5 - Sair");
+            Console.WriteLine("5 - Notificações");
+            Console.WriteLine("6 - Sair");
         }
 
         public int MenuPrincipalEscolha()
@@ -37,8 +37,6 @@ namespace Presentation_Tier
             return Convert.ToInt32(Console.ReadLine());
         }
 
-
-        //Menu quartos e os respetivos metodos
 
       
         #endregion

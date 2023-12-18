@@ -8,8 +8,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Reference Include="Application Layer">
-      <HintPath>..\Application Layer\bin\Debug\net6.0\Application Layer.dll</HintPath>
+    <Reference Include="Application Tier">
+      <HintPath>..\Application Tier\bin\Debug\net6.0\Application Tier.dll</HintPath>
     </Reference>
     <Reference Include="DataTier">
       <HintPath>..\Biblioteca\bin\Debug\net6.0\DataTier.dll</HintPath>

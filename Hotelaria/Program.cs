@@ -14,7 +14,7 @@ using System.Text;
 using System.Threading.Tasks;
 using DataTier;
 using Presentation_Tier;
-using Application_Layer;
+using Application_Tier;
 
 namespace Hotelaria
 {
@@ -38,7 +38,7 @@ namespace Hotelaria
 
 
             //O startup verifica na pasta do projeto se já existe ficheiros
-            //do nome e numero de quartos do hotel, senão faz referencia
+            //do nome e numero de quartos do hotel, senão inicia o setup
             if (string.IsNullOrEmpty(nomeDoHotel))
             {
                 metodos.Setup(dadosMetodos, fileNameNomeHotel, fileNameNumeroQuartos);
@@ -55,7 +55,7 @@ namespace Hotelaria
 
             do
             {
-                //Sempre que se volta ao menu principal depois uma açáo, o programa da load aos dados guardados no quartosData.dat
+                //Sempre que se volta ao menu principal depois uma ação, o programa da load aos dados guardados no quartosData.dat
                 loadedQuartos = dadosMetodos.DeserializeObject<List<Quarto>>("quartosData.dat");
                 //Chama os menus
                 main.Startup(loadedQuartos);
