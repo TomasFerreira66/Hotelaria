@@ -88,11 +88,10 @@ namespace Application_Tier
         public void MudarPreco(List<Quarto> loadedQuartos, Dados_Metodos hotelController)
         {
 
-            // Mudar preço de um quarto
             Console.WriteLine("Insira o número do quarto que deseja modificar o preço:");
             int numeroQuarto = Convert.ToInt32(Console.ReadLine());
 
-            // Find the room with the specified number in the loadedQuartos list
+            // Encontra o quarto especifico
             Quarto quartoParaModificar = loadedQuartos.FirstOrDefault(q => q.QuartoID == numeroQuarto);
 
             if (quartoParaModificar != null)
@@ -107,11 +106,8 @@ namespace Application_Tier
                     Console.WriteLine($"O preço atual do quarto {quartoParaModificar.QuartoID} é {quartoParaModificar.Preco}");
                     Console.WriteLine("Insira o novo preço:");
                     int novoPreco = Convert.ToInt32(Console.ReadLine());
-
-                    // Update the room's price in the loadedQuartos list
+                  
                     quartoParaModificar.Preco = novoPreco;
-
-                    // Save the updated list to the file
                     hotelController.SerializeObject(loadedQuartos, "quartosData.dat");
 
                     Console.WriteLine($"Preço do quarto {quartoParaModificar.QuartoID} modificado para {quartoParaModificar.Preco}");
