@@ -41,7 +41,7 @@ namespace Presentation_Tier
                 case 1:
                     Console.Clear();
                     infoQuartos.MenuQuartos();
-                    int escolhaQuartos = infoQuartos.MenuQuartosEscolha();
+                    int escolhaQuartos = infoQuartos.MenuInfoQuartosEscolha();
 
                     switch (escolhaQuartos)
                     {

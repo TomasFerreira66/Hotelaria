@@ -27,8 +27,6 @@ namespace Hotelaria
             Metodos metodos = new Metodos();
             Main main = new Main();
             List<Quarto> loadedQuartos;
-
-
             string fileNameNomeHotel = "nomeHotel.txt";
             string fileNameNumeroQuartos = "numeroQuartos.txt";
             string nomeDoHotel = dadosMetodos.ReadTextFromFile(fileNameNomeHotel);

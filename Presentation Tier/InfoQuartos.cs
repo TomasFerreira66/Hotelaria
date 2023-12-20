@@ -29,7 +29,7 @@ namespace Presentation_Tier
 
         }
 
-        public int MenuQuartosEscolha()
+        public int MenuInfoQuartosEscolha()
         {
             try
             {
@@ -39,7 +39,7 @@ namespace Presentation_Tier
             catch (FormatException)
             {
                 Console.WriteLine("Erro: Por favor, insira um número válido.");
-                return MenuQuartosEscolha(); // Recursively call the method to get a valid input
+                return MenuInfoQuartosEscolha(); // Recursively call the method to get a valid input
             }
         }
 
